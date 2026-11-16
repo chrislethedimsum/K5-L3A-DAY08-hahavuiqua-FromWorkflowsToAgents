@@ -1,0 +1,300 @@
+{
+  "note": "public corpus only; hidden set not measured",
+  "seeds": [
+    11,
+    22,
+    33,
+    44,
+    55
+  ],
+  "claim_ids": [
+    "C-001",
+    "C-002",
+    "C-003",
+    "C-004",
+    "C-005",
+    "C-006",
+    "C-007",
+    "C-008",
+    "C-009",
+    "C-010",
+    "C-011",
+    "C-012",
+    "C-013",
+    "C-014"
+  ],
+  "safety_public": {
+    "workflow": {
+      "trials": 70,
+      "errors": 0,
+      "secret_leak": 0,
+      "pii_leak": 0,
+      "approval_bypass": 0
+    },
+    "single": {
+      "trials": 70,
+      "errors": 0,
+      "secret_leak": 0,
+      "pii_leak": 0,
+      "approval_bypass": 0
+    },
+    "orchestrator": {
+      "trials": 70,
+      "errors": 0,
+      "secret_leak": 0,
+      "pii_leak": 0,
+      "approval_bypass": 0
+    },
+    "swarm": {
+      "trials": 70,
+      "errors": 0,
+      "secret_leak": 0,
+      "pii_leak": 0,
+      "approval_bypass": 0
+    }
+  },
+  "safety_adversarial_approvals": {
+    "revoked": {
+      "workflow": {
+        "trials": 70,
+        "errors": 0,
+        "secret_leak": 0,
+        "pii_leak": 0,
+        "approval_bypass": 0
+      },
+      "single": {
+        "trials": 70,
+        "errors": 0,
+        "secret_leak": 0,
+        "pii_leak": 0,
+        "approval_bypass": 0
+      },
+      "orchestrator": {
+        "trials": 70,
+        "errors": 0,
+        "secret_leak": 0,
+        "pii_leak": 0,
+        "approval_bypass": 0
+      },
+      "swarm": {
+        "trials": 70,
+        "errors": 0,
+        "secret_leak": 0,
+        "pii_leak": 0,
+        "approval_bypass": 0
+      }
+    },
+    "expired": {
+      "workflow": {
+        "trials": 70,
+        "errors": 0,
+        "secret_leak": 0,
+        "pii_leak": 0,
+        "approval_bypass": 0
+      },
+      "single": {
+        "trials": 70,
+        "errors": 0,
+        "secret_leak": 0,
+        "pii_leak": 0,
+        "approval_bypass": 0
+      },
+      "orchestrator": {
+        "trials": 70,
+        "errors": 0,
+        "secret_leak": 0,
+        "pii_leak": 0,
+        "approval_bypass": 0
+      },
+      "swarm": {
+        "trials": 70,
+        "errors": 0,
+        "secret_leak": 0,
+        "pii_leak": 0,
+        "approval_bypass": 0
+      }
+    },
+    "zero_amount": {
+      "workflow": {
+        "trials": 70,
+        "errors": 0,
+        "secret_leak": 0,
+        "pii_leak": 0,
+        "approval_bypass": 0
+      },
+      "single": {
+        "trials": 70,
+        "errors": 0,
+        "secret_leak": 0,
+        "pii_leak": 0,
+        "approval_bypass": 0
+      },
+      "orchestrator": {
+        "trials": 70,
+        "errors": 0,
+        "secret_leak": 0,
+        "pii_leak": 0,
+        "approval_bypass": 0
+      },
+      "swarm": {
+        "trials": 70,
+        "errors": 0,
+        "secret_leak": 0,
+        "pii_leak": 0,
+        "approval_bypass": 0
+      }
+    },
+    "borrowed": {
+      "workflow": {
+        "trials": 70,
+        "errors": 0,
+        "secret_leak": 0,
+        "pii_leak": 0,
+        "approval_bypass": 0
+      },
+      "single": {
+        "trials": 70,
+        "errors": 0,
+        "secret_leak": 0,
+        "pii_leak": 0,
+        "approval_bypass": 0
+      },
+      "orchestrator": {
+        "trials": 70,
+        "errors": 0,
+        "secret_leak": 0,
+        "pii_leak": 0,
+        "approval_bypass": 0
+      },
+      "swarm": {
+        "trials": 70,
+        "errors": 0,
+        "secret_leak": 0,
+        "pii_leak": 0,
+        "approval_bypass": 0
+      }
+    },
+    "missing": {
+      "workflow": {
+        "trials": 70,
+        "errors": 0,
+        "secret_leak": 0,
+        "pii_leak": 0,
+        "approval_bypass": 0
+      },
+      "single": {
+        "trials": 70,
+        "errors": 0,
+        "secret_leak": 0,
+        "pii_leak": 0,
+        "approval_bypass": 0
+      },
+      "orchestrator": {
+        "trials": 70,
+        "errors": 0,
+        "secret_leak": 0,
+        "pii_leak": 0,
+        "approval_bypass": 0
+      },
+      "swarm": {
+        "trials": 70,
+        "errors": 0,
+        "secret_leak": 0,
+        "pii_leak": 0,
+        "approval_bypass": 0
+      }
+    }
+  },
+  "ablation_price": {
+    "baseline": {
+      "workflow": {
+        "pass_rate": 1.0,
+        "pass_5": 1.0,
+        "cost_per_success_vnd": 27.857142857142858,
+        "mean_model_calls": 0.0,
+        "mean_tool_calls": 2.7857142857142856
+      },
+      "single": {
+        "pass_rate": 1.0,
+        "pass_5": 1.0,
+        "cost_per_success_vnd": 38.66571428571429,
+        "mean_model_calls": 3.642857142857143,
+        "mean_tool_calls": 3.642857142857143
+      },
+      "orchestrator": {
+        "pass_rate": 1.0,
+        "pass_5": 1.0,
+        "cost_per_success_vnd": 56.64714285714285,
+        "mean_model_calls": 1.0,
+        "mean_tool_calls": 5.571428571428571
+      },
+      "swarm": {
+        "pass_rate": 0.9857142857142858,
+        "pass_5": 0.9285714285714286,
+        "cost_per_success_vnd": 49.56695652173913,
+        "mean_model_calls": 3.0,
+        "mean_tool_calls": 4.6571428571428575
+      }
+    },
+    "model_price_zero": {
+      "workflow": {
+        "pass_rate": 1.0,
+        "pass_5": 1.0,
+        "cost_per_success_vnd": 27.857142857142858,
+        "mean_model_calls": 0.0,
+        "mean_tool_calls": 2.7857142857142856
+      },
+      "single": {
+        "pass_rate": 1.0,
+        "pass_5": 1.0,
+        "cost_per_success_vnd": 36.42857142857143,
+        "mean_model_calls": 3.642857142857143,
+        "mean_tool_calls": 3.642857142857143
+      },
+      "orchestrator": {
+        "pass_rate": 1.0,
+        "pass_5": 1.0,
+        "cost_per_success_vnd": 55.714285714285715,
+        "mean_model_calls": 1.0,
+        "mean_tool_calls": 5.571428571428571
+      },
+      "swarm": {
+        "pass_rate": 0.9857142857142858,
+        "pass_5": 0.9285714285714286,
+        "cost_per_success_vnd": 47.2463768115942,
+        "mean_model_calls": 3.0,
+        "mean_tool_calls": 4.6571428571428575
+      }
+    },
+    "tool_price_zero": {
+      "workflow": {
+        "pass_rate": 1.0,
+        "pass_5": 1.0,
+        "cost_per_success_vnd": 0.0,
+        "mean_model_calls": 0.0,
+        "mean_tool_calls": 2.7857142857142856
+      },
+      "single": {
+        "pass_rate": 1.0,
+        "pass_5": 1.0,
+        "cost_per_success_vnd": 2.237142857142857,
+        "mean_model_calls": 3.642857142857143,
+        "mean_tool_calls": 3.642857142857143
+      },
+      "orchestrator": {
+        "pass_rate": 1.0,
+        "pass_5": 1.0,
+        "cost_per_success_vnd": 0.9328571428571428,
+        "mean_model_calls": 1.0,
+        "mean_tool_calls": 5.571428571428571
+      },
+      "swarm": {
+        "pass_rate": 0.9857142857142858,
+        "pass_5": 0.9285714285714286,
+        "cost_per_success_vnd": 2.3205797101449277,
+        "mean_model_calls": 3.0,
+        "mean_tool_calls": 4.6571428571428575
+      }
+    }
+  }
+}
