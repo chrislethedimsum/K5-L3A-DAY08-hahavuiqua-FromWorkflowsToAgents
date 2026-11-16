@@ -4,9 +4,9 @@ Số liệu lấy từ `src/reports/benchmark.json`, `src/reports/crash.json`, v
 
 ## 1. Thông tin nhóm
 
-- Tên nhóm: `<Điền tên nhóm / TenNhom>`
+- Tên nhóm: `hahavuiqua`
 - Thành viên: xem `TEAM.md`
-- Commit chốt (trùng `report/team/decision_adr.md`): `2ac9651` (hoặc cập nhật commit chốt cuối cùng trước khi nộp)
+- Commit chốt (trùng `report/team/decision_adr.md`): `f6a3f1366527fcb772c54d5f4fad18c50db07771` (hoặc cập nhật commit chốt cuối cùng trước khi nộp)
 
 ## 2. Mục tiêu và cách tiếp cận
 
