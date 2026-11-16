@@ -18,8 +18,19 @@ ones. `lab8.trace.Trace` does this; your own tracer is fine if it matches.
 
 from __future__ import annotations
 
-from lab8.schemas import RunResult
-from lab8.shapes.common import not_implemented
+import sqlite3
+
+from lab8.db import connect
+from lab8.durability import issue_refund
+from lab8.handoff import make_handoff
+from lab8.mock_llm import complete
+from lab8.runtime import run_readonly_investigators
+from lab8.schemas import Budget, RunResult, make_run_id
+from lab8.shapes.common import finish, safe_dump
+from lab8.tools import tool_cost
+from lab8.trace import Trace
+
+SHAPE = "orchestrator"
 
 
 def run_claim(
@@ -29,7 +40,87 @@ def run_claim(
     store_path: str,
     crash_at: str | None = None,
 ) -> RunResult:
-    # TODO CP2 (student): thay stub này bằng shape orchestrator theo các bước ở docstring đầu file.
-    # TODO CP3 (student): truyền crash_at vào durability.issue_refund, không bắt InjectedCrash.
-    del store_path, crash_at
-    return not_implemented("orchestrator", claim_id, seed)
+    conn = connect(store_path)
+    try:
+        return _run(conn, claim_id, seed=seed, crash_at=crash_at)
+    finally:
+        conn.close()
+
+
+def _run(conn: sqlite3.Connection, claim_id: str, *, seed: int, crash_at: str | None) -> RunResult:
+    budget = Budget()
+    trace = Trace(make_run_id(SHAPE, claim_id, seed))
+
+    def done(status: str, amount: int = 0, reason: str | None = None) -> RunResult:
+        trace.add("decision", {"status": status, "proposal_amount": amount, "reason": reason})
+        return finish(
+            conn,
+            shape=SHAPE,
+            claim_id=claim_id,
+            seed=seed,
+            status=status,
+            proposal_amount=amount,
+            budget=budget,
+            trace=trace,
+            error_reason=reason,
+        )
+
+    budget.add_tool(tool_cost())
+    claim_row = conn.execute(
+        "SELECT claim_id, principal_id, order_id FROM claims WHERE claim_id = ?",
+        (claim_id,),
+    ).fetchone()
+    if claim_row is None:
+        return done("failed", reason="unknown_claim")
+
+    # The ticket is user data: never parsed for order id or delay.
+    if not claim_row["order_id"]:
+        complete(budget, seed=seed, purpose="draft", prompt="needs_info")
+        return done("needs_info", reason="missing_order_id")
+
+    # Handoff: allowlisted fields and read-only tools only. Parent context stays here.
+    handoff = make_handoff(
+        request_id=f"REQ-{claim_id}",
+        claim_id=claim_id,
+        task="investigate_refund_eligibility",
+        facts={},
+        allowed_tools=["lookup_order", "lookup_policy", "lookup_refund_history", "compute_compensation"],
+    )
+    trace.add("handoff", safe_dump(handoff))
+    investigated = run_readonly_investigators(
+        conn, budget, handoff, principal_id=claim_row["principal_id"]
+    )
+    tools = investigated["tools"]
+    order_view = tools.get("lookup_order", {})
+    trace.add(
+        "investigator",
+        {
+            "lookup_order": order_view,
+            "policy_count": len((tools.get("lookup_policy") or {}).get("policies") or []),
+            "refund_history": tools.get("lookup_refund_history"),
+        },
+    )
+    if not order_view.get("visible"):
+        complete(budget, seed=seed, purpose="draft", prompt="escalated")
+        return done("escalated", reason=order_view.get("reason"))
+
+    quote_payload = tools.get("compute_compensation") or {"amount_vnd": 0, "reason": "no_quote"}
+    proposal = int(quote_payload["amount_vnd"])
+    trace.add("quote", quote_payload)
+    complete(budget, seed=seed, purpose="draft", prompt=f"proposal={proposal}")
+
+    if proposal <= 0:
+        return done("denied", reason=quote_payload.get("reason"))
+
+    # Only the orchestrator writes, through the host gate, with the full quote.
+    # InjectedCrash propagates on purpose; the trace is flushed first so it is not stale.
+    try:
+        outcome = issue_refund(conn, claim_id, proposal, crash_at=crash_at)
+    except BaseException:
+        trace.add("crash", {"at": crash_at})
+        trace.write()
+        raise
+
+    if not outcome["ok"]:
+        return done("failed" if outcome["conflict"] else "denied", proposal, outcome["reason"])
+    return done("resolved", proposal)
