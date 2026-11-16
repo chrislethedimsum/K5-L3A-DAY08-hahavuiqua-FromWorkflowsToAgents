@@ -4,7 +4,7 @@
 
 - Họ tên: Mai Đăng Khương
 - MSSV: 2A202603627
-- Email: 26ai.khuongmd@vinuin.edu.vn
+- Email: 26ai.khuongmd@vinuni.edu.vn
 - GitHub: dangkhuong14
 
 ## 2. Phần việc phụ trách
