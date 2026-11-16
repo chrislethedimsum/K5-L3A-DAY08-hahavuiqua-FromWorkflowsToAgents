@@ -31,7 +31,7 @@ Vai **ledger + evaluation** (theo gợi ý chia vai nhóm 4 người trong `TEAM
   - ablation một biến: giá token của model đặt về 0, giữ nguyên mọi thứ khác.
 - Điền `report/team/decision_adr.md` và `report/team/research_card.md` (chọn R4). Khi ablation cho thấy giả thuyết ban đầu của nhóm (chênh cost đến từ lời gọi model) là sai, đã sửa lại cả hai file cho khớp số liệu.
 - Quyết định kỹ thuật: chọn workflow làm shape nộp (nhóm đã thống nhất). Lý do: cùng pass 1.000 và pass^5 1.000 với single và orchestrator nhưng cost/success thấp nhất (27.86, so với 38.67 và 56.65).
-- Commit chính (hash): (điền sau khi commit)
+- Commit chính (hash): `2ac9651` (test ledger, benchmark, đo safety và ablation, ADR và research card)
 
 ## 4. Bằng chứng
 
